@@ -20,15 +20,11 @@ threshold_gb=110
 # 将GB转换为字节
 threshold=$((threshold_gb * 1024 * 1024 * 1024))
 
-# 提前1G发送微信wxpusher提醒
-wxtx=$(((threshold_gb-1) * 1024 * 1024 * 1024))
-if (( $rx > $wxtx || $tx > $wxtx )); then
-    curl -G -d 'appToken=AT_k12I1lpMMFxPGAfyrD1D2DKIgVhCKRXS' -d 'uid=UID_phh8Q3Z0Fai2WrfyvD1tJvpxi7s4' -d 'content=gcpisaboutlimit' http://wxpusher.zjiecode.com/api/send/message 
-fi
-
 # 检查是否达到流量阈值
 if (( $rx > $threshold || $tx > $threshold )); then
     echo "流量达到${threshold}，正在关闭服务器..."
+    # 发送微信wxpusher提醒
+    curl -G -d 'appToken=AT_k12I1lpMMFxPGAfyrD1D2DKIgVhCKRXS' -d 'uid=UID_phh8Q3Z0Fai2WrfyvD1tJvpxi7s4' -d 'content=gcpisaboutlimit' http://wxpusher.zjiecode.com/api/send/message
     # 在此处执行关闭服务器的命令，例如：
     shutdown -h now
     # 或者
