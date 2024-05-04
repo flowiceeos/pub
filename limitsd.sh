@@ -26,7 +26,7 @@ if (( $rx > $threshold || $tx > $threshold )); then
     # 发送微信wxpusher提醒
     curl -G -d 'appToken=AT_k12I1lpMMFxPGAfyrD1D2DKIgVhCKRXS' -d 'uid=UID_phh8Q3Z0Fai2WrfyvD1tJvpxi7s4' -d 'content=gcpisaboutlimit' http://wxpusher.zjiecode.com/api/send/message
     # 在此处执行关闭服务器的命令，例如：
-    shutdown -h now
+    /usr/sbin/shutdown -h now
     # 或者
     # systemctl poweroff
 else
